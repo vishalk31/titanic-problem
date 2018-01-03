@@ -1,14 +1,7 @@
-
-# coding: utf-8
-
-# In[1]:
-
 import pandas as pd
 import numpy as np
 import re
 
-
-# In[2]:
 
 #importing data into pandas
 train_data=pd.read_csv("C:\\Users\\Vishal\\Desktop\\titanic\\train.csv")
@@ -17,39 +10,28 @@ full_data=[train_data,test_data]
 train_data.describe()
 
 
-# In[3]:
-
 #info about the train data
 train_data.info()
 
-
-# In[4]:
 
 #working with data
 #Pclass
 train_data[['Pclass','Survived']].groupby('Pclass',as_index=False).mean()
 
-
-# In[5]:
-
 #sex
 train_data[['Sex','Survived']].groupby('Sex',as_index=False).mean()
 
 
-# In[6]:
 
 train_data['Family'] =train_data["Parch"] + train_data["SibSp"]
 train_data[['Family', 'Survived']].groupby(['Family'], as_index=False).mean()
 
 
-# In[7]:
 
 #Embarked details
 train_data['Embarked']=train_data['Embarked'].fillna('S')
 train_data[['Embarked', 'Survived']].groupby(['Embarked'], as_index=False).mean()
 
-
-# In[8]:
 
 #age details
 train_data['Age']=train_data['Age'].fillna(train_data['Age'].mean())
@@ -58,7 +40,7 @@ train_data['CategoricalAge'] = pd.cut(train_data['Age'], 5)
 train_data[['CategoricalAge', 'Survived']].groupby('CategoricalAge', as_index=False).mean()
 
 
-# In[9]:
+
 
 #fare details
 train_data['Fare']=train_data['Fare'].fillna(train_data['Fare'].median())  
@@ -66,7 +48,7 @@ train_data['CategoricalFare'] = pd.qcut(train_data['Fare'], 4)
 train_data[['CategoricalFare', 'Survived']].groupby('CategoricalFare', as_index=False).mean()
 
 
-# In[10]:
+
 
 #dropping the name variable
 train_data=train_data.drop(['Name'],axis=1)
@@ -75,14 +57,11 @@ train_data=train_data.drop(['Cabin'],axis=1)
 train_data
 
 
-# In[11]:
 
 #removing ticket info
 train_data=train_data.drop(['Ticket'],axis=1)
 train_data
 
-
-# In[12]:
 
 #cleaning the data
 train_data['Sex']=train_data['Sex'].map({'female': 0, 'male': 1}).astype(int)
@@ -92,14 +71,11 @@ train_data['CategoricalFare']=train_data['CategoricalFare'].map({'[0, 7.91]': 0,
 train_data
 
 
-# In[13]:
 
 #dropping other age fare parch sibsp
 train_data=train_data.drop(['Age','Fare','Parch','SibSp'],axis=1)
 train_data
 
-
-# In[14]:
 
 from sklearn.model_selection import train_test_split
 predictors = train_data.drop(['Survived', 'PassengerId'], axis=1)
@@ -107,7 +83,7 @@ target = train_data["Survived"]
 x_train, x_val, y_train, y_val = train_test_split(predictors, target, test_size = 0.20, random_state = 0)
 
 
-# In[15]:
+
 
 # Gaussian Naive Bayes
 from sklearn.naive_bayes import GaussianNB
@@ -119,7 +95,6 @@ acc_gaussian = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_gaussian)
 
 
-# In[16]:
 
 # Logistic Regression
 from sklearn.linear_model import LogisticRegression
@@ -130,7 +105,7 @@ acc_logreg = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_logreg)
 
 
-# In[17]:
+
 
 # Support Vector Machines
 from sklearn.svm import SVC
@@ -152,8 +127,6 @@ acc_linear_svc = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_linear_svc)
 
 
-# In[19]:
-
 # Perceptron
 from sklearn.linear_model import Perceptron
 perceptron = Perceptron()
@@ -163,7 +136,7 @@ acc_perceptron = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_perceptron)
 
 
-# In[20]:
+
 
 #Decision Tree
 from sklearn.tree import DecisionTreeClassifier
@@ -174,8 +147,6 @@ acc_decisiontree = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_decisiontree)
 
 
-# In[21]:
-
 # Random Forest
 from sklearn.ensemble import RandomForestClassifier
 randomforest = RandomForestClassifier()
@@ -185,7 +156,7 @@ acc_randomforest = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_randomforest)
 
 
-# In[22]:
+
 
 # KNN or k-Nearest Neighbors
 from sklearn.neighbors import KNeighborsClassifier
@@ -196,7 +167,7 @@ acc_knn = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_knn)
 
 
-# In[23]:
+
 
 # Stochastic Gradient Descent
 from sklearn.linear_model import SGDClassifier
@@ -207,7 +178,6 @@ acc_sgd = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_sgd)
 
 
-# In[24]:
 
 # Gradient Boosting Classifier
 from sklearn.ensemble import GradientBoostingClassifier
@@ -218,7 +188,7 @@ acc_gbk = round(accuracy_score(y_pred, y_val) * 100, 2)
 print(acc_gbk)
 
 
-# In[25]:
+
 
 #results in data frame
 models = pd.DataFrame({
@@ -231,7 +201,6 @@ models = pd.DataFrame({
 models.sort_values(by='Score', ascending=False)
 
 
-# In[ ]:
 
 
 
