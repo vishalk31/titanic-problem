@@ -2,8 +2,8 @@ import pandas as pd
 
 
 #importing data into pandas
-train_data=pd.read_csv("C:\\Users\\Vishal\\Desktop\\titanic\\train.csv")
-test_data=pd.read_csv("C:\\Users\\Vishal\\Desktop\\titanic\\test.csv")
+train_data=pd.read_csv("C:\\Users\\Vishal\\Desktop\\titanic\\train.csv")# user path
+test_data=pd.read_csv("C:\\Users\\Vishal\\Desktop\\titanic\\test.csv")#user path 
 full_data=[train_data,test_data]
 train_data.describe()
 
